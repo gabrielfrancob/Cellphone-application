@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+:root {
+  background-color: #f3f3fe;
+  font-family: Rubik, Arial, Helvetica, sans-serif;
+}
+
+button {
+  min-width: 100px;
+  margin-bottom: 15px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+}
