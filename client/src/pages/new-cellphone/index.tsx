@@ -4,28 +4,27 @@ import { useNavigate } from "react-router-dom";
 import styles from "./index.module.css";
 import api from "../../services/config";
 import { ToastContainer, toast } from "react-toastify";
+import { useForm, SubmitHandler } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 
+type InputsType = {
+  _id: any;
+  brand: string;
+  model: string;
+  memory: number;
+  launchDate: Date;
+};
+
 export default function NewCellphonePage() {
+  const { register, handleSubmit } = useForm<InputsType>();
+  const _onSubmit: SubmitHandler<InputsType> = (data) => console.log(data);
   const location = useLocation();
   const navigate = useNavigate();
   const { selectedCellphone } = location.state || {};
-  const [formData, setFormData] = useState({
-    _id: null,
-    brand: "",
-    model: "",
-    memory: 0,
-    launchDate: "",
-  });
+  const [formData, setFormData] = useState<InputsType>();
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleInputChange = (event: any) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const onSubmit = async (e: any) => {
-    e.preventDefault();
+  const onSubmit = async (formData: InputsType) => {
     if (!isEditing) {
       await api
         .post("/cellphones", formData)
@@ -72,7 +71,7 @@ export default function NewCellphonePage() {
 
   return (
     <>
-      <form onSubmit={onSubmit} className={styles.form_content}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form_content}>
         <h1>New cellphone</h1>
         <hr />
         <span>* Fields required</span>
@@ -83,12 +82,14 @@ export default function NewCellphonePage() {
               Brand <span>*</span>
             </label>
             <input
+              {...register("brand", { required: true })}
               name="brand"
               id="brand"
               type="text"
-              value={formData.brand}
               placeholder="Brand"
-              onChange={handleInputChange}
+
+              // value={formData.brand}
+              // onChange={handleInputChange}
             />
           </div>
           <div>
@@ -96,12 +97,13 @@ export default function NewCellphonePage() {
               Model <span>*</span>
             </label>
             <input
+              {...register("model", { required: true })}
               name="model"
               id="model"
               type="text"
-              value={formData.model}
               placeholder="Model"
-              onChange={handleInputChange}
+              // value={formData.model}
+              // onChange={handleInputChange}
             />
           </div>
           <div>
@@ -109,12 +111,13 @@ export default function NewCellphonePage() {
               Memory <span>*</span>
             </label>
             <input
+              {...register("memory", { required: true })}
               name="memory"
               id="memory"
               type="number"
-              value={formData.memory}
               placeholder="Memory"
-              onChange={handleInputChange}
+              // value={formData.memory}
+              // onChange={handleInputChange}
             />
           </div>
           <div>
@@ -122,12 +125,17 @@ export default function NewCellphonePage() {
               Launch date <span>*</span>
             </label>
             <input
-              name="launchDate"
-              id="launchDate"
+              {...register("launchDate", { required: true, valueAsDate: true })}
+              placeholder="00/00/0000"
               type="date"
-              value={formData.launchDate.split("T")[0]}
-              placeholder="Launch date"
-              onChange={handleInputChange}
+              id="launchDate"
+              name="launchDate"
+              // name="launchDate"
+              // id="launchDate"
+              // type="date"
+              // value={formData.launchDate.split("T")[0]}
+              // placeholder="Launch date"
+              // onChange={handleInputChange}
             />
           </div>
           <div className={styles.button_group}>
