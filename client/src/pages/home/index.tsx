@@ -36,7 +36,7 @@ export default function Home() {
   useEffect(() => {
     const fetchCellphones = async () => {
       try {
-        const data = await api.get("/cellphones").then((response) => {
+        await api.get("/cellphones").then((response) => {
           setCellphones(response.data);
         });
       } catch (error) {

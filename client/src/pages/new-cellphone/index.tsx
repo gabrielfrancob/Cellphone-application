@@ -147,7 +147,6 @@ export default function NewCellphonePage() {
               type="date"
               id="launchDate"
               name="launchDate"
-              onChange={(event) => console.log(event.target.value)}
               // name="launchDate"
               // id="launchDate"
               // type="date"
