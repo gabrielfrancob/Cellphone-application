@@ -16,7 +16,7 @@ const cellphoneSchema = new Schema({
     required: true,
   },
   launchDate: {
-    type: Date,
+    type: String,
     required: true,
   },
 });

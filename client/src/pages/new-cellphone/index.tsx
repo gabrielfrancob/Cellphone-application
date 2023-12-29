@@ -16,11 +16,13 @@ type InputsType = {
 };
 
 export default function NewCellphonePage() {
-  const { register, handleSubmit } = useForm<InputsType>();
   const _onSubmit: SubmitHandler<InputsType> = (data) => console.log(data);
   const location = useLocation();
   const navigate = useNavigate();
   const { selectedCellphone } = location.state || {};
+  const { register, handleSubmit } = useForm<InputsType>({
+    defaultValues: selectedCellphone,
+  });
   const [formData, setFormData] = useState<InputsType>();
   const [isEditing, setIsEditing] = useState(false);
 
@@ -64,6 +66,7 @@ export default function NewCellphonePage() {
 
   useEffect(() => {
     if (selectedCellphone) {
+      // console.log(selectedCellphone);
       setFormData(selectedCellphone);
       setIsEditing(true);
     }
@@ -82,7 +85,9 @@ export default function NewCellphonePage() {
               Brand <span>*</span>
             </label>
             <input
-              {...register("brand", { required: true })}
+              {...register("brand", {
+                required: { value: true, message: "Brand is required" },
+              })}
               name="brand"
               id="brand"
               type="text"
@@ -97,7 +102,9 @@ export default function NewCellphonePage() {
               Model <span>*</span>
             </label>
             <input
-              {...register("model", { required: true })}
+              {...register("model", {
+                required: { value: true, message: "Model is required!" },
+              })}
               name="model"
               id="model"
               type="text"
@@ -111,7 +118,12 @@ export default function NewCellphonePage() {
               Memory <span>*</span>
             </label>
             <input
-              {...register("memory", { required: true })}
+              {...register("memory", {
+                required: {
+                  value: true,
+                  message: "Memory is required!",
+                },
+              })}
               name="memory"
               id="memory"
               type="number"
@@ -125,11 +137,17 @@ export default function NewCellphonePage() {
               Launch date <span>*</span>
             </label>
             <input
-              {...register("launchDate", { required: true, valueAsDate: true })}
-              placeholder="00/00/0000"
+              {...register("launchDate", {
+                required: {
+                  value: true,
+                  message: "Launch date is required!",
+                },
+                valueAsDate: true,
+              })}
               type="date"
               id="launchDate"
               name="launchDate"
+              onChange={(event) => console.log(event.target.value)}
               // name="launchDate"
               // id="launchDate"
               // type="date"

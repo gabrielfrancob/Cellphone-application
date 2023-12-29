@@ -30,7 +30,7 @@ export default function Home() {
   const formatDate = useCallback((date: string) => {
     const splitDates = date.split("T")[0].split("-");
 
-    return `${splitDates[1]}/${splitDates[2]}/${splitDates[0]}`;
+    return `${splitDates[2]}/${splitDates[1]}/${splitDates[0]}`;
   }, []);
 
   useEffect(() => {
