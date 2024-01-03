@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./index.module.css";
 import api from "../../services/config";
 import { ToastContainer, toast } from "react-toastify";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 
 type InputsType = {
@@ -16,7 +16,6 @@ type InputsType = {
 };
 
 export default function NewCellphonePage() {
-  const _onSubmit: SubmitHandler<InputsType> = (data) => console.log(data);
   const location = useLocation();
   const navigate = useNavigate();
   const { selectedCellphone } = location.state || {};
@@ -66,7 +65,6 @@ export default function NewCellphonePage() {
 
   useEffect(() => {
     if (selectedCellphone) {
-      // console.log(selectedCellphone);
       setFormData(selectedCellphone);
       setIsEditing(true);
     }
@@ -75,7 +73,7 @@ export default function NewCellphonePage() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form_content}>
-        <h1>New cellphone</h1>
+        <h1>{isEditing ? "Edit cellphone" : "New cellphone"}</h1>
         <hr />
         <span>* Fields required</span>
 
@@ -92,9 +90,6 @@ export default function NewCellphonePage() {
               id="brand"
               type="text"
               placeholder="Brand"
-
-              // value={formData.brand}
-              // onChange={handleInputChange}
             />
           </div>
           <div>
@@ -109,8 +104,6 @@ export default function NewCellphonePage() {
               id="model"
               type="text"
               placeholder="Model"
-              // value={formData.model}
-              // onChange={handleInputChange}
             />
           </div>
           <div>
@@ -128,8 +121,6 @@ export default function NewCellphonePage() {
               id="memory"
               type="number"
               placeholder="Memory"
-              // value={formData.memory}
-              // onChange={handleInputChange}
             />
           </div>
           <div>
@@ -147,12 +138,6 @@ export default function NewCellphonePage() {
               type="date"
               id="launchDate"
               name="launchDate"
-              // name="launchDate"
-              // id="launchDate"
-              // type="date"
-              // value={formData.launchDate.split("T")[0]}
-              // placeholder="Launch date"
-              // onChange={handleInputChange}
             />
           </div>
           <div className={styles.button_group}>
